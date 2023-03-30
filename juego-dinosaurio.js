@@ -1,6 +1,9 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+// Definir una variable para controlar la velocidad del dinosaurio
+const dinoSpeed = 5;
+
 // Definir el objeto del dinosaurio
 const dino = {
     x: 50,
@@ -26,9 +29,9 @@ const ground = {
     y: 200,
     width: canvas.width,
     height: 50
-  };
+};
 
-  // Dibujar el dinosaurio
+// Dibujar el dinosaurio
 function drawDino() {
     ctx.fillStyle = 'green';
     ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
@@ -43,13 +46,13 @@ function drawObstacle() {
 // Generador de obstáculos
 function updateObstacle() {
     obstacle.x -= obstacle.speed;
-  
+
     if (obstacle.x + obstacle.width < 0) {
-      obstacle.x = canvas.width + Math.random() * canvas.width;
-      obstacle.y = ground.y - obstacle.height - Math.random() * 50;
-      obstacle.speed = Math.floor(Math.random() * 4) + 1; // velocidad aleatoria entre 1 y 4
+        obstacle.x = canvas.width + Math.random() * canvas.width;
+        obstacle.y = ground.y - obstacle.height - Math.random() * 50;
+        obstacle.speed = Math.floor(Math.random() * 4) + 1; // velocidad aleatoria entre 1 y 4
     }
-  }
+}
 
 //First loop created
 function loop() {
@@ -109,7 +112,48 @@ function checkCollision() {
     return false;
 }
 
+// Función para mover al dinosaurio hacia arriba
+function moveUp() {
+    dino.y -= dinoSpeed;
+}
+
+// Función para mover al dinosaurio hacia abajo
+function moveDown() {
+    dino.y += dinoSpeed;
+}
+
+// Función para mover al dinosaurio hacia la izquierda
+function moveLeft() {
+    dino.x -= dinoSpeed;
+}
+
+// Función para mover al dinosaurio hacia la derecha
+function moveRight() {
+    dino.x += dinoSpeed;
+}
+
+// Función para manejar los eventos de teclado
+function handleKeyDown(event) {
+    switch (event.code) {
+        case "ArrowUp":
+            moveUp();
+            break;
+        case "ArrowDown":
+            moveDown();
+            break;
+        case "ArrowLeft":
+            moveLeft();
+            break;
+        case "ArrowRight":
+            moveRight();
+            break;
+    }
+}
+
 //loop();
+
+// Agregar un event listener a la ventana para manejar los eventos de teclado
+window.addEventListener("keydown", handleKeyDown);
 
 // Iniciar el bucle de juego
 gameLoop();
