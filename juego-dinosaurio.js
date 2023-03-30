@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d');
 const dinoImage = new Image();
 dinoImage.crossOrigin = 'anonymous'; // Establecer la propiedad crossOrigin
 dinoImage.src = 'dinosaurio.png';
-dinoImage.onload = function() {
+dinoImage.onload = function () {
     // Comenzar el bucle del juego
     gameLoop();
 }
@@ -139,6 +139,7 @@ function checkCollision() {
         const col = i % dino.width;
 
         if (dinoPixels[i] === 1 && col + dino.x < obstacleRight && col + dino.x > obstacleLeft && row + dino.y < obstacleBottom && row + dino.y > obstacleTop) {
+            resetGame();
             return true;
         }
     }
@@ -164,6 +165,7 @@ function checkBlockCollision() {
         dinoTop < obstacleBottom &&
         dinoBottom > obstacleTop
     ) {
+        resetGame();
         return true;
     }
 
@@ -177,6 +179,20 @@ function moveUp() {
         dino.jumping = true;
         dino.speed = -10; // Establecer la velocidad inicial del salto
     }
+}
+
+// Función que resetea el juego
+function resetGame() {
+    // Reiniciar la posición del dinosaurio
+    dino.x = 50;
+    dino.y = canvas.height - 50;
+
+    // Reiniciar la posición del obstáculo
+    obstacle.x = 600;
+    obstacle.y = 125;
+
+    // Reiniciar la velocidad del dinosaurio
+    dino.speed = 5;
 }
 
 // Función para manejar los eventos de teclado
