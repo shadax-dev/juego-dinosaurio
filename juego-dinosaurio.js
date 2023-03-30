@@ -38,7 +38,13 @@ const ground = {
 };
 
 // Gravedad
-const gravity = 0.5;
+const gravity = 0.35;
+
+// Dibujar el bloque dinosaurio
+function drawBlockDino() {
+    ctx.fillStyle = 'green';
+    ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+}
 
 // Dibujar el dinosaurio
 function drawDino() {
@@ -102,7 +108,7 @@ function gameLoop() {
     }
 
     // Dibujar el dinosaurio
-    drawDino();
+    drawBlockDino();
 
     // Actualizar el obstáculo
     updateObstacle();
@@ -111,7 +117,7 @@ function gameLoop() {
     drawObstacle();
 
     // Verificar si hay colisión
-    if (checkCollision()) {
+    if (checkBlockCollision()) {
         console.log('¡Choque!');
     }
 
@@ -135,6 +141,30 @@ function checkCollision() {
         if (dinoPixels[i] === 1 && col + dino.x < obstacleRight && col + dino.x > obstacleLeft && row + dino.y < obstacleBottom && row + dino.y > obstacleTop) {
             return true;
         }
+    }
+
+    return false;
+}
+
+// Verificar si hay colisión cuando es bloque dinosaurio
+function checkBlockCollision() {
+    const dinoLeft = dino.x;
+    const dinoRight = dino.x + dino.width;
+    const dinoTop = dino.y;
+    const dinoBottom = dino.y + dino.height;
+
+    const obstacleLeft = obstacle.x;
+    const obstacleRight = obstacle.x + obstacle.width;
+    const obstacleTop = obstacle.y;
+    const obstacleBottom = obstacle.y + obstacle.height;
+
+    if (
+        dinoLeft < obstacleRight &&
+        dinoRight > obstacleLeft &&
+        dinoTop < obstacleBottom &&
+        dinoBottom > obstacleTop
+    ) {
+        return true;
     }
 
     return false;
