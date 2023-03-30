@@ -19,7 +19,7 @@ const obstacle = {
     x: 600,
     y: 125,
     width: 30,
-    height: 30,
+    height: 50,
     speed: 7
 };
 
@@ -106,35 +106,11 @@ function moveUp() {
     dino.y -= dinoSpeed;
 }
 
-// Función para mover al dinosaurio hacia abajo
-function moveDown() {
-    dino.y += dinoSpeed;
-}
-
-// Función para mover al dinosaurio hacia la izquierda
-function moveLeft() {
-    dino.x -= dinoSpeed;
-}
-
-// Función para mover al dinosaurio hacia la derecha
-function moveRight() {
-    dino.x += dinoSpeed;
-}
-
 // Función para manejar los eventos de teclado
 function handleKeyDown(event) {
     switch (event.code) {
         case "ArrowUp":
             moveUp();
-            break;
-        case "ArrowDown":
-            moveDown();
-            break;
-        case "ArrowLeft":
-            moveLeft();
-            break;
-        case "ArrowRight":
-            moveRight();
             break;
     }
 }
