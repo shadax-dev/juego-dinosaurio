@@ -54,17 +54,6 @@ function updateObstacle() {
     }
 }
 
-//First loop created
-function loop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    drawDino();
-    updateObstacle();
-    drawObstacle();
-
-    requestAnimationFrame(loop);
-}
-
 //New loop created
 function gameLoop() {
     // Limpiar el lienzo
@@ -149,8 +138,6 @@ function handleKeyDown(event) {
             break;
     }
 }
-
-//loop();
 
 // Agregar un event listener a la ventana para manejar los eventos de teclado
 window.addEventListener("keydown", handleKeyDown);
