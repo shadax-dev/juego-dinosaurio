@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+// Definir el objeto del dinosaurio
 const dino = {
     x: 50,
     y: 125,
@@ -10,6 +11,7 @@ const dino = {
     jumping: false
 };
 
+// Definir el objeto del obstáculo
 const obstacle = {
     x: 600,
     y: 125,
@@ -18,22 +20,36 @@ const obstacle = {
     speed: 7
 };
 
+// Definir el objeto del suelo
+const ground = {
+    x: 0,
+    y: 200,
+    width: canvas.width,
+    height: 50
+  };
+
+  // Dibujar el dinosaurio
 function drawDino() {
     ctx.fillStyle = 'green';
     ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
 }
 
+// Dibujar el obstáculo
 function drawObstacle() {
     ctx.fillStyle = 'red';
     ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 }
 
+// Generador de obstáculos
 function updateObstacle() {
     obstacle.x -= obstacle.speed;
-    if (obstacle.x < -obstacle.width) {
-        obstacle.x = 600;
+  
+    if (obstacle.x + obstacle.width < 0) {
+      obstacle.x = canvas.width + Math.random() * canvas.width;
+      obstacle.y = ground.y - obstacle.height - Math.random() * 50;
+      obstacle.speed = Math.floor(Math.random() * 4) + 1; // velocidad aleatoria entre 1 y 4
     }
-}
+  }
 
 //First loop created
 function loop() {
@@ -69,6 +85,7 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
+// Verificar si hay colisión
 function checkCollision() {
     const dinoLeft = dino.x;
     const dinoRight = dino.x + dino.width;
